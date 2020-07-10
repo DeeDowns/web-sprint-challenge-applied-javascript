@@ -57,7 +57,7 @@ const articles = 'https://lambda-times-backend.herokuapp.com/articles';
 
 axios.get(articles)
     .then(function (value) {
-        console.log(value.data.articles);
+        // console.log(value.data.articles);
         const cardInfo = value.data.articles;
         // console.log(cardInfo);
         for(let key in cardInfo){
