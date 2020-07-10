@@ -11,7 +11,7 @@
 // Use your function to create a header
 // and append it to the DOM inside the div.header-container
     const headerContainer = document.querySelector('.header-container')
-    console.log(headerContainer)
+    // console.log(headerContainer)
 
 function Header() {
     const headerDiv = document.createElement('div');
@@ -31,13 +31,9 @@ function Header() {
     headerDiv.appendChild(title);
     headerDiv.appendChild(temp);
 
-   
-
-    console.log(headerDiv)
+    // console.log(headerDiv)
 
     return headerDiv
 }
-
-console.log(Header())
 
 headerContainer.appendChild(Header())
