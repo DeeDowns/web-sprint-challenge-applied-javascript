@@ -1,3 +1,4 @@
+import axios from 'axios';
 // STEP 3: Create article cards.
 // -----------------------
 // Send an HTTP GET request to the following address: https://lambda-times-backend.herokuapp.com/articles
@@ -21,7 +22,6 @@
 //
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 const cardsContainer = document.querySelector('.cards-container');
-console.log(cardsContainer);
 
 function articleMaker(articleObj) {
     const card = document.createElement('div');
@@ -36,18 +36,40 @@ function articleMaker(articleObj) {
     imageContainer.className = 'img-container';
     authorContainer.className = 'author';
 
-    // headline.textContent = articleObj.headline;
-    // name.textContent = `By ${articleObj.authorName}`;
-    // image.src = articleObj.authorPhoto; 
+    headline.textContent = articleObj.headline;
+    name.textContent = `By ${articleObj.authorName}`;
+    image.src = articleObj.authorPhoto; 
 
     card.appendChild(headline);
     card.appendChild(authorContainer);
     authorContainer.appendChild(imageContainer);
     authorContainer.appendChild(name);
+    imageContainer.appendChild(image);
 
-    console.log(card)
+    card.addEventListener('click', () => {
+        console.log(headline.textContent)
+    })
+
     return card
 }
 
-articleMaker()
+const articles = 'https://lambda-times-backend.herokuapp.com/articles';
 
+axios.get(articles)
+    .then(function (value) {
+        console.log(value.data.articles);
+        const cardInfo = value.data.articles;
+        // console.log(cardInfo);
+        for(let key in cardInfo){
+            // console.log(cardInfo[key])
+            const cardInfoArr = cardInfo[key];
+            // console.log(cardInfoArr);
+            cardInfoArr.forEach(item => {
+                // console.log(item); 
+                 cardsContainer.appendChild(articleMaker(item))
+            })
+        }
+    })
+    .catch(function (error) {
+       console.log(error);
+    })
